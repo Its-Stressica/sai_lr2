@@ -1,9 +1,11 @@
 class Puzzle:
-    goal_state = [1, 2, 3, 8, 0, 4, 7, 6, 5]
+    goal_state = [1, 2, 3, 8, 0, 4, 7, 6, 5] #цільовий стан, де 0 - порожня клітинка
     heuristic = None
     evaluation_function = None
     needs_hueristic = False
     num_of_instances = 0
+
+    # --------- Ініціалізація об'єкту головоломки ---------
     def __init__(self, state, parent, action, path_cost, needs_hueristic = False):
         self.parent = parent
         self.state = state
@@ -18,6 +20,7 @@ class Puzzle:
             self.evaluation_function = self.heuristic+self.path_cost
         Puzzle.num_of_instances += 1
 
+    # --------- Функція отримання рядкового представлення стану головоломки  ----------
     def __str__(self):
         return str(self.state[0:3])+'\n'+str(self.state[3:6])+'\n'+str(self.state[6:9])
 
@@ -29,14 +32,17 @@ class Puzzle:
     #         j = int(distance % 3)
     #         self.heuristic = self.heuristic+i+j
 
+    # --------- Оцінка евристики ----------
     def generate_heuristic(self):
         self.heuristic = sum(1 for i in range(9) if self.state[i] != self.goal_state[i])
 
+    # --------- Перевірка чи поточний стан відповідає цільовому ----------
     def goal_test(self):
         if self.state == self.goal_state:
             return True
         return False
 
+    # --------- Статичний метод для знаходження допустимого шляху(руху) ----------
     @staticmethod
     def find_legal_actions(i, j):
         legal_action = ['U', 'D', 'L', 'R']
@@ -50,6 +56,7 @@ class Puzzle:
             legal_action.remove('R')
         return legal_action
 
+    # --------- Генерація дочірніх вузлів для поточного стану ----------
     def generate_child(self):
         children = []
         x = self.state.index(0)
@@ -70,6 +77,7 @@ class Puzzle:
             children.append(Puzzle(new_state, self, action, 1, self.needs_hueristic))
         return children
 
+    # --------- Знаходження рішення ----------
     def find_solution(self):
         solution = []
         solution.append(self.action)

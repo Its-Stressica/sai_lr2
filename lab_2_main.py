@@ -4,7 +4,7 @@ from ldfs import limited_deep_first_search
 from rbfs import recursive_best_first_search
 from puzzle import Puzzle
 
-# Функція для виведення стану у вигляді таблиці
+# --------- Функція табличного представлення поточного стану ----------
 def print_state(state, state_number=None):
     if state_number is not None:
         print(f'Стан {state_number}:')
