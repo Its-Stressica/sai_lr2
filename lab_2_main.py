@@ -99,11 +99,14 @@ sum_memo_ldfs = 0
 sum_memo_rbfs = 0
 sum_lens_ldfs = 0
 sum_lens_rbfs = 0
+sum_time_ldfs = 0
+sum_time_rbfs = 0
 
 for i in range(0, 20):
     print('------------------------------------------')
     print('Стартовий стан', i + 1)
     print_state(state[i])
+
 
     Puzzle.num_of_instances = 0
     t0 = time()
@@ -115,6 +118,7 @@ for i in range(0, 20):
     print('Пам\'ять:', Puzzle.num_of_instances)
     print('Час:', t1)
 
+    sum_time_ldfs = sum_time_ldfs + t1
     sum_lens_ldfs = sum_lens_ldfs + len(ldfs)
     sum_memo_ldfs = sum_memo_ldfs + Puzzle.num_of_instances
     # data = {'Час': [t1],
@@ -136,6 +140,7 @@ for i in range(0, 20):
     print('Пам\'ять:', Puzzle.num_of_instances)
     print('Час:', t1)
 
+    sum_time_rbfs = sum_time_rbfs + t1
     sum_lens_rbfs = sum_lens_rbfs + len(rbfs)
     sum_memo_rbfs = sum_memo_rbfs + Puzzle.num_of_instances
     # data = {'Час': [t1],
@@ -158,6 +163,8 @@ print('--------- Середні результати алгоритмів ------
 
 print('\nCереднє по пам\'яті LDFS', (sum_memo_ldfs / 20))
 print('Cереднє по операціям LDFS', (sum_lens_ldfs / 20))
+print('Cереднє по часу LDFS', (sum_time_ldfs / 20))
 
 print('\nCереднє по пам\'яті RBFS', (sum_memo_rbfs / 20))
 print('Cереднє по операціям RBFS', (sum_lens_rbfs / 20))
+print('Cереднє по часу RBFS', (sum_time_rbfs / 20))
